@@ -1,7 +1,7 @@
 #!/bin/bash
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
 
-source "$DIR/functions.sh"
+source "$ROOT_DIR/functions.sh"
 
 # TODO display list of hacks
 # TODO handle rar files https://metroidconstruction.com/hack.php?id=294 https://metroidconstruction.com/hack.php?id=33
