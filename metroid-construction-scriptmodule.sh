@@ -74,7 +74,15 @@ function install_metroid-construction() {
     # Files we want to keep (retain)
     md_ret_files=(
         #'functions.sh'
+        'create_cache.sh'
+        'data.ini'
+        'download_patch.sh'
+        'functions.sh'
         'metroid-construction.sh'
+        'modify_gamelist.py'
+        'parse_html_game.py'
+        'parse_html_menu.py'
+        'show_menu.py'
         #'varia-randomizer-generate.sh'
         #'varia-parameters.ini'
         #'varia-config.ini'
