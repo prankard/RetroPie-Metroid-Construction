@@ -68,9 +68,11 @@ if [ "$hack_id" -eq 0 ]; then
     exit
 fi
 
+TODAY=$(date +'%Y-%m-%d')
+CACHE_FOLDER=/home/pi/.metroidconstruction/cache_$TODAY
 TEMP_FOLDER=/home/pi/metroidconstructionapi/tmp
 TMP_MENU_HTML=$TEMP_FOLDER/menu.txt
-GAME_HTML=$CACHE_FOLDER/$hack_id.html
+GAME_HTML=${CACHE_FOLDER}/${hack_id}.html
 TMP_GAME_VARS=$TEMP_FOLDER/game.ini
 TMP_IPS=$TEMP_FOLDER/patch.ips
 TMP_LIST=$TEMP_FOLDER/list.txt
@@ -90,6 +92,7 @@ if [ ! -f $GAME_HTML ]; then
 fi
 
 #parse html into variables
+rm -f $TMP_GAME_VARS
 python3 "$ROOT_DIR/parse_html_game.py" $GAME_HTML $TMP_GAME_VARS
 source $TMP_GAME_VARS
 

@@ -14,10 +14,6 @@ MENU_DATA_DETAILED=$CACHE_FOLDER/menu_data_detailed.txt
 TMP_ZIP=$TEMP_FOLDER/hack.zip
 TMP_IPS=$TEMP_FOLDER/patch.ips
 
-ROM_DIR=/home/pi/RetroPie/roms/snes
-SOURCE_GAME=/home/pi/RetroPie/roms/snes/SuperMetroidOriginalHeaderless.smc.bak
-MEDIA_DIR=/home/pi/RetroPie/roms/snes/media
-
 #make dirs
 #rm -r $TEMP_FOLDER
 mkdir -p $TEMP_FOLDER
