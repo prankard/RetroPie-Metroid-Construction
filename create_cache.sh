@@ -1,3 +1,5 @@
+ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
+
 TODAY=$(date +'%Y-%m-%d')
 CACHE_FOLDER=/home/pi/metroidconstructionapi/cache_$TODAY
 ALL_CACHE_FOLDERS=/home/pi/metroidconstructionapi/cache_*
@@ -29,5 +31,5 @@ if [ ! -f $MENU_HTML ]; then
 fi
 
 if [ ! -f $MENU_DATA ]; then
-    python3 parse_html_menu.py $MENU_HTML $CACHE_FOLDER
+    python3 "$ROOT_DIR/parse_html_menu.py" $MENU_HTML $CACHE_FOLDER
 fi
