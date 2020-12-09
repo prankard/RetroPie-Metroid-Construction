@@ -23,6 +23,16 @@ function sources_metroid-construction() {
     echo "Plugin Name: $PLUGIN_NAME"
     gitPullOrClone "$md_build" "https://github.com/prankard/RetroPie-Metroid-Construction.git"
 
+    # Add execute permission
+    chmod +x "$md_build/create_cache.sh"
+    chmod +x "$md_build/download_patch.sh"
+    chmod +x "$md_build/functions.sh"
+    chmod +x "$md_build/metroid-construction.sh"
+    chmod +x "$md_build/modify_gamelist.py"
+    chmod +x "$md_build/parse_html_game.py"
+    chmod +x "$md_build/parse_html_menu.py"
+    chmod +x "$md_build/show_menu.sh"
+
     # Add files folder and give it access to sudo user
     mkdir "$md_build/files"
     chmod 777 "$md_build/files"
