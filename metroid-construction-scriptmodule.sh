@@ -8,7 +8,7 @@
 # To install the joystick-selection tool, go to
 # Manage packages >> Manage experimental packages >> joystick-selection >> Install from source
 
-#readonly PLUGIN_NAME="metroid-construction"
+readonly PLUGIN_NAME="metroid-construction"
 
 rp_module_id="metroid-construction" # can't acces this? huh
 rp_module_desc="Metroid Construction for Metroid/Metroid II/Super Metroid/Metroid Fusion/Metroid Zero Mission Hack Homebrew Content"
@@ -20,6 +20,7 @@ function depends_metroid-construction() {
 }
 
 function sources_metroid-construction() {
+    echo "Plugin Name: $PLUGIN_NAME"
     gitPullOrClone "$md_build" "https://github.com/prankard/RetroPie-Metroid-Construction.git"
 
     # Add files folder and give it access to sudo user
@@ -38,6 +39,7 @@ function build_metroid-construction() {
 }
 
 function install_metroid-construction() {
+    echo "Plugin Name: $PLUGIN_NAME"
     local PLUGIN_NAME="metroid-construction"
     local scriptname="metroid-construction.sh"
     local gamelistxml="$datadir/retropiemenu/gamelist.xml"
@@ -82,7 +84,7 @@ function install_metroid-construction() {
         'modify_gamelist.py'
         'parse_html_game.py'
         'parse_html_menu.py'
-        'show_menu.py'
+        'show_menu.sh'
         #'varia-randomizer-generate.sh'
         #'varia-parameters.ini'
         #'varia-config.ini'
@@ -93,13 +95,14 @@ function install_metroid-construction() {
 }
 
 function remove_metroid-construction() {
+    echo "Plugin Name: $PLUGIN_NAME"
     local PLUGIN_NAME="metroid-construction"
     local scriptname="${PLUGIN_NAME}.sh"
     rm -rfv "$configdir"/*/${PLUGIN_NAME}.cfg "$datadir/retropiemenu/icons/${PLUGIN_NAME}.png" "$datadir/retropiemenu/$scriptname"
     xmlstarlet ed -P -L -d "/gameList/game[contains(path,'$scriptname')]" "$datadir/retropiemenu/gamelist.xml"
 }
 
-#function gui_varia-randomizer() {
-    #bash "$md_inst/${PLUGIN_NAME}.sh"
+function gui_metroid-construction() {
+    bash "$md_inst/${PLUGIN_NAME}.sh"
     #bash "$md_inst/varia-randomizer.sh"
-#}
+}

@@ -1,8 +1,9 @@
 #!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-source "functions.sh"
+source "$DIR/functions.sh"
 
-bash create_cache.sh
+bash "$DIR/create_cache.sh"
 GAME=SM
 
 # Game Selection
@@ -42,7 +43,7 @@ clear
 if [[ -n "$choice" ]]; then
     echo $choice
 else
-    exec "/home/pi/metroidconstructionapi/show_menu.sh"
+    exec "$DIR/show_menu.sh"
 fi
 #echo $choice
 
@@ -111,16 +112,16 @@ clear
 if [[ -n "$install_choice" ]]; then
     if [ "$install_choice" = "I" ]; then
         bash download_patch.sh "$GAME" "$choice" "$hack_name" "$hack_author" "$hack_genre" "$hack_date" "$hack_rating"
-        exec "/home/pi/metroidconstructionapi/show_menu.sh" $GAME
+        exec "$DIR/show_menu.sh" $GAME
     elif [ "$install_choice" = "U" ]; then
         echo "We now remove files"
         echo "rm -f "$hack_files"*"
         rm -f "$hack_files"*
         python3 modify_gamelist.py $GAMELIST_PATH remove $hack_id
-        exec "/home/pi/metroidconstructionapi/show_menu.sh" $GAME
+        exec "$DIR/show_menu.sh" $GAME
     else
-        exec "/home/pi/metroidconstructionapi/show_menu.sh" $GAME
+        exec "$DIR/show_menu.sh" $GAME
     fi
 else
-    exec "/home/pi/metroidconstructionapi/show_menu.sh" $GAME
+    exec "$DIR/show_menu.sh" $GAME
 fi
