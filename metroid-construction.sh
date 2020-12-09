@@ -1,7 +1,7 @@
 #!/bin/bash
 ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
 
-bash $DIR/show_menu.sh
+bash $ROOT_DIR/show_menu.sh
 # Show Test dialog
 #options=("1" "Yes" "2" "No")
 #cmd=(dialog --title " Did this work " --menu "Is this menu showing up on your screen?" 19 80 12)

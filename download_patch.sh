@@ -90,7 +90,7 @@ if [ ! -f $TMP_HTML ]; then
 fi
 
 #parse html into variables
-python3 parse_html_game.py $TMP_HTML $TMP_GAME_VARS
+python3 "$ROOT_DIR/parse_html_game.py" $TMP_HTML $TMP_GAME_VARS
 source $TMP_GAME_VARS
 
 echo "Images: "$hack_image
@@ -262,7 +262,7 @@ local_image_filename=./$hack_id.$image_extension
 
 echo "Downloading screenshot"
 wget $hack_image -O $MEDIA_DIR/$local_image_filename
-python3 modify_gamelist.py "$GAMELIST_PATH" add "$hack_id" "$hack_name" "$DESTINATION_SMC_FILENAME" "$hack_rating" "$hack_date" "$hack_author" "$hack_genre" "$local_image_filename" "$hack_desc"
+python3 "$ROOT_DIR/modify_gamelist.py" "$GAMELIST_PATH" add "$hack_id" "$hack_name" "$DESTINATION_SMC_FILENAME" "$hack_rating" "$hack_date" "$hack_author" "$hack_genre" "$local_image_filename" "$hack_desc"
 
 #addGameToXML "snes" "Super Metroid Randomized" "$DESTINATION_SMC_FILENAME" "$DESC" "Super Metroid"
 

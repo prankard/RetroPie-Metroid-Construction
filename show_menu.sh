@@ -117,7 +117,7 @@ if [[ -n "$install_choice" ]]; then
         echo "We now remove files"
         echo "rm -f "$hack_files"*"
         rm -f "$hack_files"*
-        python3 modify_gamelist.py $GAMELIST_PATH remove $hack_id
+        python3 "$ROOT_DIR/modify_gamelist.py" "$GAMELIST_PATH" remove $hack_id
         exec "$ROOT_DIR/show_menu.sh" $GAME
     else
         exec "$ROOT_DIR/show_menu.sh" $GAME

@@ -1,5 +1,6 @@
 #!/bin/bash
-source "data.ini"
+ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
+source "$ROOT_DIR/data.ini"
 
 function getRetropiePath()
 {
