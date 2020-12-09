@@ -111,7 +111,7 @@ clear
 
 if [[ -n "$install_choice" ]]; then
     if [ "$install_choice" = "I" ]; then
-        download_patch.sh "$GAME" "$choice" "$hack_name" "$hack_author" "$hack_genre" "$hack_date" "$hack_rating"
+        "$ROOT_DIR/download_patch.sh" "$GAME" "$choice" "$hack_name" "$hack_author" "$hack_genre" "$hack_date" "$hack_rating"
         exec "$ROOT_DIR/show_menu.sh" $GAME
     elif [ "$install_choice" = "U" ]; then
         echo "We now remove files"

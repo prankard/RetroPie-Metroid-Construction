@@ -70,7 +70,7 @@ fi
 
 TEMP_FOLDER=/home/pi/metroidconstructionapi/tmp
 TMP_MENU_HTML=$TEMP_FOLDER/menu.txt
-TMP_HTML=$TEMP_FOLDER/game.html
+GAME_HTML=$CACHE_FOLDER/$hack_id.html
 TMP_GAME_VARS=$TEMP_FOLDER/game.ini
 TMP_IPS=$TEMP_FOLDER/patch.ips
 TMP_LIST=$TEMP_FOLDER/list.txt
@@ -85,12 +85,12 @@ MEDIA_DIR=$(eval getMediaPath "$GAME_SYSTEM")
 mkdir -p $TEMP_FOLDER
 
 #download html file
-if [ ! -f $TMP_HTML ]; then
-    wget https://metroidconstruction.com/hack.php?id=$hack_id -O $TMP_HTML
+if [ ! -f $GAME_HTML ]; then
+    wget https://metroidconstruction.com/hack.php?id=$hack_id -O $GAME_HTML
 fi
 
 #parse html into variables
-python3 "$ROOT_DIR/parse_html_game.py" $TMP_HTML $TMP_GAME_VARS
+python3 "$ROOT_DIR/parse_html_game.py" $GAME_HTML $TMP_GAME_VARS
 source $TMP_GAME_VARS
 
 echo "Images: "$hack_image

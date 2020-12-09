@@ -1,9 +1,12 @@
 ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
 
 TODAY=$(date +'%Y-%m-%d')
-CACHE_FOLDER=/home/pi/metroidconstructionapi/cache_$TODAY
-ALL_CACHE_FOLDERS=/home/pi/metroidconstructionapi/cache_*
-TEMP_FOLDER=/home/pi/metroidconstructionapi/tmp
+#CACHE_FOLDER=/home/pi/metroidconstructionapi/cache_$TODAY
+#ALL_CACHE_FOLDERS=/home/pi/metroidconstructionapi/cache_*
+#TEMP_FOLDER=/home/pi/metroidconstructionapi/tmp
+CACHE_FOLDER=/home/pi/.metroidconstruction/cache_$TODAY
+ALL_CACHE_FOLDERS=/home/pi/.metroidconstruction/cache_*
+TEMP_FOLDER=/home/pi/.metroidconstruction/tmp
 TMP_HTML=$TEMP_FOLDER/id_info.txt
 MENU_HTML=$CACHE_FOLDER/menu_source.html
 MENU_DATA=$CACHE_FOLDER/menu_data.txt
