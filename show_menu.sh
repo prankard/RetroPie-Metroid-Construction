@@ -8,11 +8,23 @@ GAME=SM
 
 # Game Selection
 if [ -z $1 ]; then
-    configure_options=("M1" "Metroid 1" "M2" "Metroid 2" "SM" "Super Metroid" "MF" "Metroid Fusion" "MZM" "Metroid Zero Mission" "A" "Advanced Settings")
+    configure_options=()
+    for GAME in "${GAMES_ARRAY[@]}"
+    do
+        GAME_NAME=$(getNameFromGame "${GAME}")
+        configure_options+=("$GAME" "$GAME_NAME")
+    done
+    configure_options+=("A", "Advanced Settings")
+    #configure_options=("M1" "Metroid 1" "M2" "Metroid 2" "SM" "Super Metroid" "MF" "Metroid Fusion" "MZM" "Metroid Zero Mission" "A" "Advanced Settings")
     cmd=(dialog --title "  Metroid Construction  " --colors --menu "\nMetroid Construction is a home for homebrew hacks. Please visit www.metroidconstruciton.com for reviews, screenshots, installation details and post your opinions for the homebrew content you play\n" 19 80 12)
     game_choice=$("${cmd[@]}" "${configure_options[@]}" 2>&1 >/dev/tty)
     if [[ -n "$game_choice" ]]; then
-        GAME=$game_choice
+        if [ "$game_choice" = "A" ]; then
+            echo "We should do advanced options now"
+            exit
+        else
+            GAME=$game_choice
+        fi
     else
         clear
         exit

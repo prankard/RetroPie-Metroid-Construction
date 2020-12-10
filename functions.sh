@@ -8,6 +8,20 @@ function getRetropiePath()
     echo "$(find /home -type d -name RetroPie -print -quit 2> /dev/null)"
 }
 
+function getNameFromGame()
+{
+    if [ -z "$GAME_TO_NAME_ARRAY" ]; then
+        IFS=',' read -r -a GAME_TO_NAME_ARRAY <<< "$GAME_TO_NAME"
+    fi
+
+    for (( c=0; c<=${#GAME_TO_NAME_ARRAY[@]}; c+=2 ))
+    do  
+        if [ "$1" = "${GAME_TO_NAME_ARRAY[$c]}" ]; then
+            echo ${GAME_TO_NAME_ARRAY[$c+1]}
+        fi
+    done
+}
+
 function getSystemFromGame()
 {
     if [ -z "$GAME_TO_SYSTEMS_ARRAY" ]; then
