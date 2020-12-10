@@ -7,6 +7,11 @@ function getRetropiePath()
     echo "$(find /home -type d -name RetroPie -print -quit 2> /dev/null)"
 }
 
+function getGames()
+{
+    echo $GAMES_LIST
+}
+
 function getSystemFromGame()
 {
     if [ -z "$GAME_TO_SYSTEMS_ARRAY" ]; then
