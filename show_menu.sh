@@ -36,11 +36,11 @@ GAME_SYSTEM=$(eval getSystemFromGame "$GAME")
 GAMELIST_PATH=$(eval getGamelistPath "$GAME_SYSTEM")
 
 TODAY=$(date +'%Y-%m-%d')
-CACHE_FOLDER=/home/pi/metroidconstructionapi/cache_$TODAY
-TEMP_FOLDER=/home/pi/metroidconstructionapi/tmp
+CACHE_FOLDER=/home/pi/.metroidconstruction/cache_$TODAY
+TEMP_FOLDER=/home/pi/.metroidconstruction/tmp
 MENU_HTML=$CACHE_FOLDER/menu_source.html
-MENU_DATA=$CACHE_FOLDER/menu_data.txt
-MENU_DATA_DETAILED=$CACHE_FOLDER/menu_data_detailed.txt
+MENU_DATA=$CACHE_FOLDER/${GAME}_menu_data.txt
+MENU_DATA_DETAILED=$CACHE_FOLDER/${GAME}_menu_data_detailed.txt
 SEPERATOR="|||"
 ROM_DIR=$(eval getRetropiePath)/roms/${GAME_SYSTEM}/
 
