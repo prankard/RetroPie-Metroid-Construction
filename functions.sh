@@ -34,6 +34,21 @@ function getSourceGamePath()
         fi
     done
 }
+
+function getMd5FromGame()
+{
+    if [ -z "$GAME_TO_MD5_ARRAY" ]; then
+        IFS=',' read -r -a GAME_TO_MD5_ARRAY <<< "$GAME_TO_MD5"
+    fi
+
+    for (( c=0; c<=${#GAME_TO_MD5_ARRAY[@]}; c+=2 ))
+    do  
+        if [ "$1" = "${GAME_TO_MD5_ARRAY[$c]}" ]; then
+            echo ${GAME_TO_MD5_ARRAY[$c+1]}
+        fi
+    done
+}
+
 ###################################################
 # getGamelistPath
 #

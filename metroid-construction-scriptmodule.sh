@@ -32,6 +32,7 @@ function sources_metroid-construction() {
     chmod +x "$md_build/parse_html_game.py"
     chmod +x "$md_build/parse_html_menu.py"
     chmod +x "$md_build/show_menu.sh"
+    chmod +x "$md_build/verify_installed_files.sh"
 
     # Add files folder and give it access to sudo user
     mkdir "$md_build/files"
@@ -95,6 +96,7 @@ function install_metroid-construction() {
         'parse_html_game.py'
         'parse_html_menu.py'
         'show_menu.sh'
+        'verify_installed_files.sh'
         #'varia-randomizer-generate.sh'
         #'varia-parameters.ini'
         #'varia-config.ini'
