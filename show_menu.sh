@@ -1,13 +1,13 @@
 #!/bin/bash
 ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
+GAME=SM
 
 source "$ROOT_DIR/functions.sh"
 
-bash "$ROOT_DIR/create_cache.sh"
-GAME=SM
-
 # Game Selection
 if [ -z $1 ]; then
+    bash "$ROOT_DIR/create_cache.sh"
+
     configure_options=()
     for GAME in "${GAMES_ARRAY[@]}"
     do
