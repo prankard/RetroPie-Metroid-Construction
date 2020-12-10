@@ -2,16 +2,25 @@
 ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
 
 source "$ROOT_DIR/functions.sh"
-GAMES_ARRAY=("M1", "M2", "SM", "MF", "MZM")
+GAMES_ARRAY=("M1" "M2" "SM" "MF" "MZM")
 
-for (( c=0; c<=${#GAMES_ARRAY[@]}; c+=1 ))
-do  
-    VALID_MD5_HASH=$(eval getSystemFromGame "${GAMES_ARRAY[$c]}")
-    PATH=$(eval getSourceGamePath "${GAMES_ARRAY[$c]}")
-    HASH=$(eval md5sum $PATH | awk {' print $1 '})
-    if [ "$HASH" = "$VALID_MD5_HASH" ]
-        echo "Valid hash for: $path"
+MSG="\nTesting current ROM files for the correct unheadered versions used with this plugin\n\n\n"
+
+for GAME in "${GAMES_ARRAY[@]}"
+do
+    GAME_PATH=$(getSourceGamePath "${GAME}")
+    MSG+="\Z0  ${GAME}: "
+    if [[ -f "$GAME_PATH" ]]; then
+        VALID_MD5_HASH=$(getMd5FromGame "${GAME}")
+        HASH=($(md5sum "$GAME_PATH"))
+        if [ "$HASH" = "$VALID_MD5_HASH" ]; then
+            MSG+="\Z2Valid MD5\n\n"
+        else
+            MSG+="\Z1Invalid MD5 Checksum\n\Z8${GAME_PATH}\n"
+        fi
     else
-        echo "Invalid hash for: $path"
+        MSG+="\Z1File not found\n$\Z8{GAME_PATH}\n"
     fi
 done
+
+dialog --title "  CHECKING SOURCE ROMS  " --colors --msgbox "$MSG" 19 80
