@@ -1,15 +1,11 @@
 #!/bin/bash
 ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
 source "$ROOT_DIR/data.ini"
+IFS=',' read -r -a GAMES_ARRAY <<< "$GAMES_LIST"
 
 function getRetropiePath()
 {
     echo "$(find /home -type d -name RetroPie -print -quit 2> /dev/null)"
-}
-
-function getGames()
-{
-    echo $GAMES_LIST
 }
 
 function getSystemFromGame()

@@ -3,7 +3,6 @@ ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
 
 source "$ROOT_DIR/functions.sh"
 #GAMES_ARRAY=("M1" "M2" "SM" "MF" "MZM")
-GAMES_ARRAY=($GAMES_LIST)
 
 MSG="\nTesting current ROM files for the correct unheadered versions used with this plugin\n\n\n"
 
