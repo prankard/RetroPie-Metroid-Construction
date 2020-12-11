@@ -30,8 +30,11 @@ function show_advanced_menu()
                         local valid_md5_hash=$(getMd5FromGame "${game_choice}")
                         local hash=($(md5sum "$chosen_file_path"))
                         if [ "$hash" = "$valid_md5_hash" ]; then
-                            mkdir -p "$destination_file"
-                            cp "$chosen_file_path" "$destination_file"
+                            local destination_folder="$(dirname "${destination_file}")"
+                            local source_filename="$(basename "${chosen_file_path}")"
+                            mkdir -p "$destination_folder"
+                            cp "$chosen_file_path" "$destination_folder"
+                            mv "$destination_folder/$source_filename" "$destination_file"
                             dialog --title "  VALID FILE  " --colors --msgbox "\nValid file copied to $destination_file\n\nThank you :)" 19 80
                         else
                             dialog --title "  INVALID FILE  " --colors --msgbox "\nInvalid file at $chosen_file_path\n\nWanted Md5 hash: $valid_md5_hash\nYour Md5 hash: $hash" 19 80
