@@ -1,6 +1,7 @@
 #!/bin/bash
 ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
 GAME=SM
+HAS_FILE=""
 
 source "$ROOT_DIR/functions.sh"
 
@@ -23,6 +24,10 @@ if [ -z $1 ]; then
             exit
         else
             GAME=$game_choice
+            if [[ ! -f "$(eval getSourceGamePath $GAME)" ]]; then
+                dialog --title "  ROM NOT FOUND:  " --colors --msgbox "\nWarning, ROM file not found at path:\n$(eval getSourceGamePath $GAME)\n\nYou can browse packages, but they cannot be installed" 19 80
+                HAS_FILE=1
+            fi
         fi
     else
         clear
@@ -30,10 +35,6 @@ if [ -z $1 ]; then
     fi
 else
     GAME=$1
-fi
-
-if [[ ! -f "$(eval getSourceGamePath $GAME)" ]]; then
-    dialog --title "  ROM NOT FOUND:  " --colors --msgbox "\nWarning, ROM file not found at path:\n$(eval getSourceGamePath $GAME)\n\nYou can browse packages, but they cannot be installed" 19 80
 fi
 
 GAME_SYSTEM=$(eval getSystemFromGame "$GAME")
@@ -98,13 +99,23 @@ menu_text+="Avg Time:     $hack_completion\n"
 menu_text+="Avg Rating:   $hack_rating\n\n"
 hack_files=${ROM_DIR}metcon_${hack_id}_
 
+HAS_INSTALLLED=""
 if compgen -G "${hack_files}*" > /dev/null; then
+    HAS_INSTALLLED=1
     menu_text+="Installed:    \Z2Yes\n\n"
 else
     menu_text+="Installed:    \Z1No\n\n"
 fi
 
-configure_options=("I" "Install" "U" "Uninstall" "B" "Back")
+configure_options=()
+if [ -z HAS_FILE ]; then
+    if [ ! -z HAS_INSTALLLED ]; then
+        configure_options+=("I" "Install")
+    else
+        configure_options+=("U" "Uninstall")
+    fi
+fi
+configure_options+=("B" "Back")
 cmd=(dialog --title "  $hack_name  " --colors --menu "$menu_text" 19 80 12)
 install_choice=$("${cmd[@]}" "${configure_options[@]}" 2>&1 >/dev/tty)
 
