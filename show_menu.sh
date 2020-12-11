@@ -7,10 +7,27 @@ source "$ROOT_DIR/functions.sh"
 #function 
 function show_advanced_menu()
 {
-    local options=("S" "Select Source ROM Files from RetroPie" "C" "Check All Valid Source ROM Files" "D" "Delete ALL Metroid Construction Hacks" "B" "Back")
+    local options=("S" "Select Source ROM Files from RetroPie" "V" "Verify All Valid Source ROM Files" "D" "Delete ALL Metroid Construction Hacks" "B" "Back")
     local cmd=(dialog --title "  Advanced Settings  " --colors --menu "\nAll the advanced stuff is in here, be careful\n" 19 80 12)
     local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
-    echo $choice
+    
+    if [[ -n "$choice" ]]; then
+        if [ "$choice" = "S" ]; then
+            dialog --title "  Select code  " --colors --msgbox "Here we select some code" 19 80
+        elif [ "$choice" = "V" ]; then
+            bash "$ROOT_DIR/verify_installed_files.sh"
+        elif [ "$choice" = "D" ]; then
+            local you_sure=$(areyousure "${GAME}")
+            if [ "$you_sure" = "1" ]; then
+                dialog --title "  NO TURNING BACK  " --colors --msgbox "We just removed all your files :(" 19 80
+            fi
+        else
+            exec "$ROOT_DIR/show_menu.sh"
+        fi
+        exec "$ROOT_DIR/show_menu.sh" "A"
+    else
+        exec "$ROOT_DIR/show_menu.sh"
+    fi
 }
 
 # Game Selection
@@ -28,8 +45,8 @@ if [ -z $1 ]; then
     game_choice=$("${cmd[@]}" "${configure_options[@]}" 2>&1 >/dev/tty)
     if [[ -n "$game_choice" ]]; then
         if [ "$game_choice" = "A" ]; then
-            $(eval show_advanced_menu)
-#            echo "We should do advanced options now"
+            show_advanced_menu
+#           echo "We should do advanced options now"
             exit
         else
             GAME=$game_choice
@@ -45,7 +62,11 @@ if [ -z $1 ]; then
         exit
     fi
 else
-    GAME=$1
+    if [ "$1" == "A" ]; then
+        show_advanced_menu
+    else
+        GAME=$1
+    fi
 fi
 
 GAME_SYSTEM=$(eval getSystemFromGame "$GAME")
