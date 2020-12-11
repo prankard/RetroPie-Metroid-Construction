@@ -30,6 +30,7 @@ function show_advanced_menu()
                         local valid_md5_hash=$(getMd5FromGame "${game_choice}")
                         local hash=($(md5sum "$chosen_file_path"))
                         if [ "$hash" = "$valid_md5_hash" ]; then
+                            mkdir -p "$destination_file"
                             cp "$chosen_file_path" "$destination_file"
                             dialog --title "  VALID FILE  " --colors --msgbox "\nValid file copied to $destination_file\n\nThank you :)" 19 80
                         else
@@ -167,12 +168,12 @@ else
 fi
 
 configure_options=()
-if [ ! -z "$HAS_FILE" ]; then
-    if [ ! -z "$HAS_INSTALLLED" ]; then
+if [ ! -z "$HAS_INSTALLLED" ]; then
+    if [ ! -z "$HAS_FILE" ]; then
         configure_options+=("I" "Install")
-    else
-        configure_options+=("U" "Uninstall")
     fi
+else
+    configure_options+=("U" "Uninstall")
 fi
 configure_options+=("B" "Back")
 cmd=(dialog --title "  $hack_name  " --colors --menu "$menu_text" 19 80 12)
