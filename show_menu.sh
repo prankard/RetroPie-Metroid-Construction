@@ -1,9 +1,17 @@
 #!/bin/bash
 ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
 GAME=SM
-HAS_FILE=""
 
 source "$ROOT_DIR/functions.sh"
+
+#function 
+function show_advanced_menu()
+{
+    local options=("S" "Select Source ROM Files from RetroPie" "C" "Check All Valid Source ROM Files" "D" "Delete ALL Metroid Construction Hacks" "B" "Back")
+    local cmd=(dialog --title "  Advanced Settings  " --colors --menu "\nAll the advanced stuff is in here, be careful\n" 19 80 12)
+    local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+    echo $choice
+}
 
 # Game Selection
 if [ -z $1 ]; then
@@ -20,12 +28,15 @@ if [ -z $1 ]; then
     game_choice=$("${cmd[@]}" "${configure_options[@]}" 2>&1 >/dev/tty)
     if [[ -n "$game_choice" ]]; then
         if [ "$game_choice" = "A" ]; then
-            echo "We should do advanced options now"
+            $(eval show_advanced_menu)
+#            echo "We should do advanced options now"
             exit
         else
             GAME=$game_choice
             if [[ ! -f "$(eval getSourceGamePath $GAME)" ]]; then
                 dialog --title "  ROM NOT FOUND:  " --colors --msgbox "\nWarning, ROM file not found at path:\n$(eval getSourceGamePath $GAME)\n\nYou can browse packages, but they cannot be installed" 19 80
+                unset HAS_FILE
+            else
                 HAS_FILE=1
             fi
         fi
@@ -99,17 +110,17 @@ menu_text+="Avg Time:     $hack_completion\n"
 menu_text+="Avg Rating:   $hack_rating\n\n"
 hack_files=${ROM_DIR}metcon_${hack_id}_
 
-HAS_INSTALLLED=""
 if compgen -G "${hack_files}*" > /dev/null; then
-    HAS_INSTALLLED=1
+    HAS_INSTALLED=1
     menu_text+="Installed:    \Z2Yes\n\n"
 else
+    unset HAS_INSTALLED
     menu_text+="Installed:    \Z1No\n\n"
 fi
 
 configure_options=()
-if [ -z HAS_FILE ]; then
-    if [ ! -z HAS_INSTALLLED ]; then
+if [ ! -z "$HAS_FILE" ]; then
+    if [ ! -z "$HAS_INSTALLLED" ]; then
         configure_options+=("I" "Install")
     else
         configure_options+=("U" "Uninstall")
