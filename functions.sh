@@ -1,5 +1,12 @@
 #!/bin/bash
 ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
+TODAY=$(date +'%Y-%m-%d')
+CACHE_FOLDER=/tmp/metroidconstruction/cache_$TODAY
+TEMP_FOLDER=/tmp/metroidconstruction/tmp
+MENU_HTML=$CACHE_FOLDER/menu_source.html
+MENU_DATA=$CACHE_FOLDER/${GAME}_menu_data.txt
+MENU_DATA_DETAILED=$CACHE_FOLDER/${GAME}_menu_data_detailed.txt
+
 source "$ROOT_DIR/data.ini"
 IFS=',' read -r -a GAMES_ARRAY <<< "$GAMES_LIST"
 

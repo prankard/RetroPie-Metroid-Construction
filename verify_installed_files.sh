@@ -19,7 +19,7 @@ do
             MSG+="\Z1Invalid MD5 Checksum\n\Z8${GAME_PATH}\n"
         fi
     else
-        MSG+="\Z1File not found\n$\Z8{GAME_PATH}\n"
+        MSG+="\Z1File not found\n$\Z8${GAME_PATH}\n"
     fi
 done
 

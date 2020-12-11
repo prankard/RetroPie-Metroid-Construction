@@ -12,32 +12,6 @@ source "$ROOT_DIR/functions.sh"
 # TODO, overlay IPS patches (really!!!) https://metroidconstruction.com/hack.php?id=87
 
 
-#Main
-
-#view menu
-#https://metroidconstruction.com/hacks.php?sort=&dir=&filters%5B%5D=SM&filters%5B%5D=Unknown&filters%5B%5D=Boss+Rush&filters%5B%5D=Exploration&filters%5B%5D=Challenge&filters%5B%5D=Spoof&filters%5B%5D=Speedrun%2FRace&filters%5B%5D=Incomplete&filters%5B%5D=Quick+Play&filters%5B%5D=Improvement&filters%5B%5D=Vanilla%2B&search=&num_per_page=10
-#if [ ! -f $TMP_MENU_HTML ]; then
-#    wget https://metroidconstruction.com/hacks.php?sort=&dir=&filters%5B%5D=SM&filters%5B%5D=Unknown&filters%5B%5D=Boss+Rush&filters%5B%5D=Exploration&filters%5B%5D=Challenge&filters%5B%5D=Spoof&filters%5B%5D=Speedrun%2FRace&filters%5B%5D=Incomplete&filters%5B%5D=Quick+Play&filters%5B%5D=Improvement&filters%5B%5D=Vanilla%2B&search=&num_per_page=10 -O $TMP_MENU_HTML
-#fi
-
-#local GREP1=$(grep -o '<tr class="even>.*</tr>' $TMP_MENU_HTML)
-#<b>Download</b> <a href="download.php?id=410&f=https%3A%2F%2Fmetroidconstruction.com%2F%2Ffiles%2Fhacks%2F410%2FSM_Ascent_1.12.zip">Version 1.12 Unheadered</a>
-#echo $GREP1
-#local GREP2=$(grep -o 'hack.php.*">' <<< "$GREP1")
-#echo $GREP2
-# 
-#echo $(awk '{if (NR!=1) {print substr($2, 1, length($2)-1)}}' <<< $GREP2)
-#echo $(cut -c4- <<< $GREP2)
-#local GREP3=$(sed -e 's/&f=\(.*\)">/\1/' <<< $GREP2)
-#echo $GREP3
-#local RESULT=$(urldecode "$GREP3")
-#return $RESULT
-#echo $RESULT   
-
-#dialog --title " Menu! " --column-separator "|" --menu "" 19 40 12 "1" "A long option|One" "2" "Option|Two" "3" "Option|Three" "4" "Option|Four"
-#exit
-
-
 # variables
 if [ -z "$1" ]; then
     GAME="SM"
@@ -68,10 +42,6 @@ if [ "$hack_id" -eq 0 ]; then
     exit
 fi
 
-TODAY=$(date +'%Y-%m-%d')
-CACHE_FOLDER=/home/pi/.metroidconstruction/cache_$TODAY
-TEMP_FOLDER=/home/pi/metroidconstructionapi/tmp
-TMP_MENU_HTML=$TEMP_FOLDER/menu.txt
 GAME_HTML=${CACHE_FOLDER}/${hack_id}.html
 TMP_GAME_VARS=$TEMP_FOLDER/game.ini
 TMP_IPS=$TEMP_FOLDER/patch.ips
