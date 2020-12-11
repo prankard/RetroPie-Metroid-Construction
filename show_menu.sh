@@ -31,6 +31,7 @@ function show_advanced_menu()
                         local hash=($(md5sum "$chosen_file_path"))
                         if [ "$hash" = "$valid_md5_hash" ]; then
                             cp "$chosen_file_path" "$destination_file"
+                            dialog --title "  VALID FILE  " --colors --msgbox "\Valid file copied to $destination_file\n\nThank you :)" 19 80
                         else
                             dialog --title "  INVALID FILE  " --colors --msgbox "\nInvalid file at $chosen_file_path\n\nWanted Md5 hash: $valid_md5_hash\nYour Md5 hash: $hash" 19 80
                         fi
