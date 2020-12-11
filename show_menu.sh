@@ -32,6 +32,10 @@ else
     GAME=$1
 fi
 
+if [[ ! -f "$(eval getSourceGamePath $GAME)" ]]; then
+    dialog --title "  ROM NOT FOUND:  " --colors --msgbox "\nWarning, ROM file not found at path:\n$(eval getSourceGamePath $GAME)\n\nYou can browse packages, but they cannot be installed" 19 80
+fi
+
 GAME_SYSTEM=$(eval getSystemFromGame "$GAME")
 GAMELIST_PATH=$(eval getGamelistPath "$GAME_SYSTEM")
 
