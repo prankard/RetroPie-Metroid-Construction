@@ -19,9 +19,23 @@ function show_advanced_menu()
                 local rom_folder=$(eval getRetropiePath)/roms/${game_system}/
                 local TMP_LIST=$TEMP_FOLDER/list.txt
                 find "$rom_folder" -name '*.smc' -o -name '*.sfc' > $TMP_LIST
-                local chosen_file=$(eval chooseOneOption "\"$TMP_LIST\"" "\" A Choose ROM \"" "\"\nPlease Select an source UNHEADERED rom file to use to patch homebrew\n\nThis will be the base file that all hacks start with\n\"")
-                local final_path="${rom_folder}${chosen_file}"
-                dialog --title "  Select code  " --colors --msgbox "Here we select a rom for $game_choice in folder:\n$final_path\n" 19 80
+                local chosen_file_path=$(eval chooseOneOption "\"$TMP_LIST\"" "\" A Choose ROM \"" "\"\nPlease Select an source UNHEADERED rom file to use to patch homebrew\n\nThis will be the base file that all hacks will be patched from\n\"")
+                if [ ! -z "$chosen_file_path" ]; then
+                    local extension="${chosen_file_path##*.}"
+                    local extension=${extension,,} #to lowercase
+                    if [ "$extension" = "zip" ]; then
+                        dialog --title "  Oh noes  " --colors --msgbox "Oh now, we can't do zi just yet:\n$chosen_file_path\n" 19 80
+                    else
+                        local destination_file=$(eval getSourceGamePath "$GAME")
+                        local valid_md5_hash=$(getMd5FromGame "${GAME}")
+                        local hash=($(md5sum "$chosen_file_path"))
+                        if [ "$hash" = "$valid_md5_hash" ]; then
+                            cp "$chosen_file_path" "$destination_file"
+                        else
+                            dialog --title "  INVALID FILE  " --colors --msgbox "\nInvalid file at $chosen_file_path\n\nWanted Md5 hash: $valid_md5_hash\nYour Md5 hash: $hash" 19 80
+                        fi
+                    fi
+                fi
             fi
         elif [ "$choice" = "V" ]; then
             bash "$ROOT_DIR/verify_installed_files.sh"
