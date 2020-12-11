@@ -10,6 +10,29 @@ MENU_DATA_DETAILED=$CACHE_FOLDER/${GAME}_menu_data_detailed.txt
 source "$ROOT_DIR/data.ini"
 IFS=',' read -r -a GAMES_ARRAY <<< "$GAMES_LIST"
 
+function chooseAGame()
+{
+    local options=()    
+    MSG="\nTesting current ROM files for the correct unheadered versions used with this plugin\n\n\n"
+    for GAME in "${GAMES_ARRAY[@]}"
+    do
+        local GAME_NAME=$(getNameFromGame "${GAME}")
+        local options+=("$GAME" "$GAME_NAME")
+    done
+    local options+=("B" "Back")
+    local cmd=(dialog --title " CHOOSE A GAME " --menu "$1" 19 80 12)
+    local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+    if [[ -n "$choice" ]]; then
+        if [ "$choice" = "B" ]; then
+            echo ""
+        else
+            echo "$choice"
+        fi
+    else
+        echo ""
+    fi
+}
+
 function getRetropiePath()
 {
     echo "$(find /home -type d -name RetroPie -print -quit 2> /dev/null)"

@@ -13,13 +13,21 @@ function show_advanced_menu()
     
     if [[ -n "$choice" ]]; then
         if [ "$choice" = "S" ]; then
-            dialog --title "  Select code  " --colors --msgbox "Here we select some code" 19 80
+            local game_choice=$(chooseAGame)
+            if [ ! -z "$game_choice" ]; then
+                local game_system=$(eval getSystemFromGame "$game_choice")
+                local rom_folder=$(eval getRetropiePath)/roms/${game_system}/
+                dialog --title "  Select code  " --colors --msgbox "Here we select a rom for $game_choice in folder:\n$rom_folder\n" 19 80
+            fi
         elif [ "$choice" = "V" ]; then
             bash "$ROOT_DIR/verify_installed_files.sh"
         elif [ "$choice" = "D" ]; then
-            local you_sure=$(areyousure "${GAME}")
+                local you_sure=$(areyousure "\nAre you sure, this will delete all hacks installed by this plugin, and ALL their battery save files")
             if [ "$you_sure" = "1" ]; then
-                dialog --title "  NO TURNING BACK  " --colors --msgbox "We just removed all your files :(" 19 80
+                local you_really_sure=$(areyousure "\nAre you really sure?\nThere is no turning back after this point\n")
+                if [ "$you_really_sure" = "1" ]; then
+                    dialog --title "  WELL, THERE IS NO TURNING BACK NOW  " --colors --msgbox "\nWe just removed all your files.\nConsider this a fresh start :)\n" 19 80
+                fi
             fi
         else
             exec "$ROOT_DIR/show_menu.sh"
