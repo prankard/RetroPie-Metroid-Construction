@@ -17,7 +17,11 @@ function show_advanced_menu()
             if [ ! -z "$game_choice" ]; then
                 local game_system=$(eval getSystemFromGame "$game_choice")
                 local rom_folder=$(eval getRetropiePath)/roms/${game_system}/
-                dialog --title "  Select code  " --colors --msgbox "Here we select a rom for $game_choice in folder:\n$rom_folder\n" 19 80
+                local TMP_LIST=$TEMP_FOLDER/list.txt
+                find "$rom_folder" -name '*.smc' -o -name '*.sfc' > $TMP_LIST
+                local chosen_file=$(eval chooseOneOption "\"$TMP_LIST\"" "\" A Choose ROM \"" "\"\nPlease Select an source UNHEADERED rom file to use to patch homebrew\n\nThis will be the base file that all hacks start with\n\"")
+                local final_path="${rom_folder}${chosen_file}"
+                dialog --title "  Select code  " --colors --msgbox "Here we select a rom for $game_choice in folder:\n$final_path\n" 19 80
             fi
         elif [ "$choice" = "V" ]; then
             bash "$ROOT_DIR/verify_installed_files.sh"
