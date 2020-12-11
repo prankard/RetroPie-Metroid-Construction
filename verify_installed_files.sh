@@ -16,10 +16,10 @@ do
         if [ "$HASH" = "$VALID_MD5_HASH" ]; then
             MSG+="\Z2Valid MD5\n\n"
         else
-            MSG+="\Z1Invalid MD5 Checksum\n\Z8${GAME_PATH}\n"
+            MSG+="\Z1Invalid MD5 Checksum\n\Z4${GAME_PATH}\n"
         fi
     else
-        MSG+="\Z1File not found\n$\Z8${GAME_PATH}\n"
+        MSG+="\Z1File not found\n\Z4${GAME_PATH}\n"
     fi
 done
 
