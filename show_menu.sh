@@ -24,14 +24,14 @@ function show_advanced_menu()
                     local extension="${chosen_file_path##*.}"
                     local extension=${extension,,} #to lowercase
                     if [ "$extension" = "zip" ]; then
-                        dialog --title "  Oh noes  " --colors --msgbox "Oh now, we can't do zi just yet:\n$chosen_file_path\n" 19 80
+                        dialog --title "  Oh noes  " --colors --msgbox "Oh now, we can't do zip just yet:\n$chosen_file_path\n" 19 80
                     else
-                        local destination_file=$(eval getSourceGamePath "$GAME")
-                        local valid_md5_hash=$(getMd5FromGame "${GAME}")
+                        local destination_file=$(eval getSourceGamePath "$game_choice")
+                        local valid_md5_hash=$(getMd5FromGame "${game_choice}")
                         local hash=($(md5sum "$chosen_file_path"))
                         if [ "$hash" = "$valid_md5_hash" ]; then
                             cp "$chosen_file_path" "$destination_file"
-                            dialog --title "  VALID FILE  " --colors --msgbox "\Valid file copied to $destination_file\n\nThank you :)" 19 80
+                            dialog --title "  VALID FILE  " --colors --msgbox "\nValid file copied to $destination_file\n\nThank you :)" 19 80
                         else
                             dialog --title "  INVALID FILE  " --colors --msgbox "\nInvalid file at $chosen_file_path\n\nWanted Md5 hash: $valid_md5_hash\nYour Md5 hash: $hash" 19 80
                         fi
