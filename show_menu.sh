@@ -24,7 +24,21 @@ function show_advanced_menu()
                     local extension="${chosen_file_path##*.}"
                     local extension=${extension,,} #to lowercase
                     if [ "$extension" = "zip" ]; then
-                        dialog --title "  Oh noes  " --colors --msgbox "Oh now, we can't do zip just yet:\n$chosen_file_path\n" 19 80
+                        #dialog --title "  Oh noes  " --colors --msgbox "Oh now, we can't do zip just yet:\n$chosen_file_path\n" 19 80
+                        #todo, find a way to do multiple file types
+                        7z l "$chosen_file_path" | grep -i '.sfc' | cut -c 54- > $TMP_LIST 
+                        local zip_choice=$(eval chooseOneOption "\"$TMP_LIST\"" "\" Choose a source file \"" "\"Please select and source file to patch\"")
+                        if [ ! -z "$zip_choice" ]; then
+                            #unzip -p "$TMP_ARCHIVE" "$ips_files" > "$TMP_IPS" # old unzip
+                            cd $TEMP_FOLDER
+                            7z e "$TMP_ARCHIVE" "$zip_choice"
+                            local choice_filename=$(basename -- "$choice") #get filename
+                            mv "${TEMP_FOLDER}/${choice_filename}" "${destination_file}"
+                            cd "$ROOT_DIR"
+                        else
+                            exec "$ROOT_DIR/show_menu.sh" "A"
+                        fi
+
                     else
                         local destination_file=$(eval getSourceGamePath "$game_choice")
                         local valid_md5_hash=$(getMd5FromGame "${game_choice}")
@@ -35,7 +49,8 @@ function show_advanced_menu()
                             mkdir -p "$destination_folder"
                             cp "$chosen_file_path" "$destination_folder"
                             mv "$destination_folder/$source_filename" "$destination_file"
-                            dialog --title "  VALID FILE  " --colors --msgbox "\nValid file copied to $destination_file\n\nThank you :)" 19 80
+                            bash "$ROOT_DIR/verify_installed_files.sh"
+                            #dialog --title "  VALID FILE  " --colors --msgbox "\nValid file copied to $destination_file\n\nThank you :)" 19 80
                         else
                             dialog --title "  INVALID FILE  " --colors --msgbox "\nInvalid file at $chosen_file_path\n\nWanted Md5 hash: $valid_md5_hash\nYour Md5 hash: $hash" 19 80
                         fi

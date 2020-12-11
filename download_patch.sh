@@ -162,7 +162,7 @@ elif [ "$extension" = "zip" ] || [ "$extension" = "7z" ]; then
         7z e "$TMP_ARCHIVE" "$choice"
         choice_filename=$(basename -- "$choice") #get filename
         mv "${TEMP_FOLDER}/${choice_filename}" "${TMP_IPS}"
-        cd "../"
+        cd "$ROOT_DIR"
     else
         exit
     fi
