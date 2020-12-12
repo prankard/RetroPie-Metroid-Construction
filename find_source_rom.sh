@@ -57,8 +57,9 @@ function find_source()
             else
                 dialog --title "  INVALID FILE  " --colors --msgbox "\nInvalid file at $chosen_file_path\n\nWanted Md5 hash: $valid_md5_hash\nYour Md5 hash: $hash" 19 80
             fi
+        else
+            dialog --title "  COULD NOT COPY FILE  " --msgbox "\nCould not copy file to: ${destination_file}\n\n" 19 80
         fi
-
     fi
         
 }
