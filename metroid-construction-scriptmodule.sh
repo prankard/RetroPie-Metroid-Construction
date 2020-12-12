@@ -26,6 +26,7 @@ function sources_metroid-construction() {
     # Add execute permission
     chmod +x "$md_build/create_cache.sh"
     chmod +x "$md_build/download_patch.sh"
+    chmod +x "$md_build/find_source_rom.sh"
     chmod +x "$md_build/functions.sh"
     chmod +x "$md_build/metroid-construction.sh"
     chmod +x "$md_build/modify_gamelist.py"
@@ -90,6 +91,7 @@ function install_metroid-construction() {
         'create_cache.sh'
         'data.ini'
         'download_patch.sh'
+        'find_source_rom.sh'
         'functions.sh'
         'metroid-construction.sh'
         'modify_gamelist.py'

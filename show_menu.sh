@@ -21,6 +21,10 @@ function show_advanced_menu()
                 find "$rom_folder" -name '*.smc' -o -name '*.sfc' -o -name '*.zip' > $TMP_LIST
                 local chosen_file_path=$(eval chooseOneOption "\"$TMP_LIST\"" "\" A Choose ROM \"" "\"\nPlease Select an source UNHEADERED rom file to use to patch homebrew\n\nThis will be the base file that all hacks will be patched from\n\"")
                 local destination_file=$(eval getSourceGamePath "$game_choice")
+
+                bash $ROOT_DIR/find_source_rom.sh "$rom_folder" "$destination_file" "smc|sfc"
+                exit
+
                 if [ ! -z "$chosen_file_path" ]; then
                     local extension="${chosen_file_path##*.}"
                     local extension=${extension,,} #to lowercase
