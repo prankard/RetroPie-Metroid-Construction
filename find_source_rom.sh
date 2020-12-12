@@ -2,6 +2,7 @@
 
 ROOT_DIR="/opt/retropie/supplementary/metroid-construction/"
 source "$ROOT_DIR/functions.sh"
+mkdir -p $TEMP_FOLDER
 TMP_LIST=$TEMP_FOLDER/list.txt
 #sleep 5
 #exit
@@ -26,7 +27,7 @@ function find_source()
         if [ "$extension" = "zip" ]; then
             #dialog --title "  Oh noes  " --colors --msgbox "Oh now, we can't do zip just yet:\n$chosen_file_path\n" 19 80
             #todo, find a way to do multiple file types
-            7z l "$chosen_file_path" | grep -i '.smc' | cut -c 54- > $TMP_LIST 
+            7z l "$chosen_file_path" | grep -i '$extensions_list' | cut -c 54- > $TMP_LIST 
             local zip_choice=$(eval chooseOneOption "\"$TMP_LIST\"" "\" Choose a source file \"" "\"Please select and source file to patch\"")
             if [ ! -z "$zip_choice" ]; then
                 #unzip -p "$TMP_ARCHIVE" "$ips_files" > "$TMP_IPS" # old unzip
@@ -58,4 +59,7 @@ function find_source()
         
 }
 
+echo "About to find source"
+sleep 3
 find_source "$1" "$2" "$3"
+sleep 3
