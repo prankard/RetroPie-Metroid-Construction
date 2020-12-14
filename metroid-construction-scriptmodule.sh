@@ -16,7 +16,7 @@ rp_module_help="Follow the instructions on the dialogs to configure random super
 rp_module_section="exp"
 
 function depends_metroid-construction() {    
-    getDepends "beautifulsoup4" "python3-bs4" "python3-lxml" "p7z-full" "unrar-free" # pyhton html/xml parser, 7zip archive, rar archive 
+#    getDepends "beautifulsoup4" "python3-bs4" "python3-lxml" "p7z-full" "unrar-free" # pyhton html/xml parser, 7zip archive, rar archive 
     getDepends "libsdl2-dev" # Used for the joystick input I think
 }
 
