@@ -51,8 +51,8 @@ function find_source()
         if [ -f "$destination_file" ]; then
             local hash=($(md5sum "$destination_file"))
             if [ "$hash" = "$valid_hash" ]; then
-                bash "$ROOT_DIR/verify_installed_files.sh"
-                #dialog --title "  VALID FILE  " --colors --msgbox "\nValid file copied to $destination_file\n\nThank you :)" 19 80
+                #bash "$ROOT_DIR/verify_installed_files.sh"
+                dialog --title "  VALID FILE  " --colors --msgbox "\nValid file copied to $destination_file\n\nThank you :)" 19 80
             else
                 rm -f "$destination_file"
                 dialog --title "  INVALID FILE  " --colors --msgbox "\nInvalid file at $chosen_file_path\n\nWanted Md5 hash: $valid_hash\nYour Md5 hash: $hash" 19 80
@@ -64,5 +64,4 @@ function find_source()
         
 }
 
-echo "About to find source"
 find_source "$1" "$2" "$3" "$4"

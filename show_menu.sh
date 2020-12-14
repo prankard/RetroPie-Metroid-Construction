@@ -7,7 +7,8 @@ source "$ROOT_DIR/functions.sh"
 #function 
 function show_advanced_menu()
 {
-    local options=("S" "Select Source ROM Files from RetroPie" "V" "Verify All Valid Source ROM Files" "D" "Delete ALL Metroid Construction Hacks" "B" "Back")
+    #local options=("S" "Select Source ROM Files from RetroPie" "V" "Verify All Valid Source ROM Files" "D" "Delete ALL Metroid Construction Hacks" "B" "Back")
+    local options=("S" "Select Source ROM Files from RetroPie" "V" "Verify All Valid Source ROM Files" "B" "Back")
     local cmd=(dialog --title "  Advanced Settings  " --colors --menu "\nAll the advanced stuff is in here, be careful\n" 19 80 12)
     local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     
