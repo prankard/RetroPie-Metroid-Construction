@@ -12,13 +12,15 @@ function find_source()
     local rom_folder="$1"
     local destination_file="$2"
     local extensions_list="$3"
+    local valid_hash="$4"
     #echo "Looking for: $rom_folder"
     #echo "Destination File: $destination_file"
     #echo "Extensions List: $extensions_list"
 
 
     #find "$rom_folder" -name '*.smc' -o -name '*.sfc' -o -name '*.zip' > $TMP_LIST
-    ls "$rom_folder" | grep '$extensions_list' > $TMP_LIST
+    #TODO make grep work with full paths, at teh oment it's lcoal path with the new patch
+    ls "$rom_folder" | grep -E "$extensions_list" > $TMP_LIST
     local chosen_file_path=$(eval chooseOneOption "\"$TMP_LIST\"" "\" A Choose ROM \"" "\"\nPlease Select an source UNHEADERED rom file to use to patch homebrew\n\nThis will be the base file that all hacks will be patched from\n\"")
     local destination_file=$(eval getSourceGamePath "$game_choice")
     if [ ! -z "$chosen_file_path" ]; then
@@ -49,12 +51,12 @@ function find_source()
         fi
 
         if [ -f "$destination_file" ]; then
-            local valid_md5_hash=$(getMd5FromGame "${game_choice}")
             local hash=($(md5sum "$destination_file"))
-            if [ "$hash" = "$valid_md5_hash" ]; then
+            if [ "$hash" = "$valid_hash" ]; then
                 bash "$ROOT_DIR/verify_installed_files.sh"
                 #dialog --title "  VALID FILE  " --colors --msgbox "\nValid file copied to $destination_file\n\nThank you :)" 19 80
             else
+                rm -f "$destination_file"
                 dialog --title "  INVALID FILE  " --colors --msgbox "\nInvalid file at $chosen_file_path\n\nWanted Md5 hash: $valid_md5_hash\nYour Md5 hash: $hash" 19 80
             fi
         else
