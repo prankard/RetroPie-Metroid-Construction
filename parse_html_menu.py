@@ -12,9 +12,11 @@ if len(sys.argv) != 3:
     print("Incorrect aguments, needed 2\n- source html file to read\n- output folder for data\n\nexample:\npyhton3 parse_html_menu.py file.html output_folder\n")
     exit()
 
+
 source_html=sys.argv[1]
 output_folder=sys.argv[2]
 
+monthsDict={"Jan": "01", "Feb":"02", "Mar":"03", "Apr":"04", "May":"05", "Jun":"06", "Jul":"07", "Aug":"08", "Sep":"09", "Oct":"10", "Nov":"11", "Dec":"12"}
 response = urllib.request.urlopen('file://' + source_html)
 html_doc = response.read()
 
@@ -63,9 +65,24 @@ for child in children:
             avgRating = avgRating[:-11]
         if avgRating.endswith(' chozo orb'):
             avgRating = avgRating[:-10]
+
+    try:
+        percentRating=str(float(avgRating) / float('5.0'))
+        percentRating=percentRating[:5]
+    except:
+        percentRating='0'
+
+    try:
+        date_year=game_date[8:]
+        date_month_text=game_date[:3]
+        date_month=monthsDict[date_month_text]
+        date_day=game_date[4:6]
+        game_date_datetime=date_year + date_month + date_day + 'T000000'
+    except:
+        game_date_datetime='N/A'
     
     split = '|||'
-    detailed_line = game_id + split + game_title + split + game_author + split + game_genre + split + game_type + split + game_date + split + game_completion + split + avgRating + '\n'
+    detailed_line = game_id + split + game_title + split + game_author + split + game_genre + split + game_type + split + game_date + split + game_completion + split + avgRating + split + percentRating + split + game_date_datetime + '\n'
     line = game_id + '\n' + game_title[:40] + split + game_author[:12] + split + game_completion + split + avgRating + '\n'
     
     if game_type in data_by_game:
