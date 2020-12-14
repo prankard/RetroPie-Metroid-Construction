@@ -22,6 +22,7 @@ function find_source()
     #TODO make grep work with full paths, at teh oment it's lcoal path with the new patch
     ls "$rom_folder" | grep -E "$extensions_list" > $TMP_LIST
     local chosen_file_path=$(eval chooseOneOption "\"$TMP_LIST\"" "\" A Choose ROM \"" "\"\nPlease Select an source UNHEADERED rom file to use to patch homebrew\n\nThis will be the base file that all hacks will be patched from\n\"")
+    chosen_file_path=$rom_folder/$chosen_file_path
     local destination_file=$(eval getSourceGamePath "$game_choice")
     if [ ! -z "$chosen_file_path" ]; then
         local extension="${chosen_file_path##*.}"
