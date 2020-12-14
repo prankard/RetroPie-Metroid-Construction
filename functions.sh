@@ -10,6 +10,21 @@ MENU_DATA_DETAILED=$CACHE_FOLDER/${GAME}_menu_data_detailed.txt
 source "$ROOT_DIR/data.ini"
 IFS=',' read -r -a GAMES_ARRAY <<< "$GAMES_LIST"
 
+function hasAnySourceRoms()
+{
+    local HAS_GAME=""
+    for GAME in "${GAMES_ARRAY[@]}"
+    do
+        local GAME_PATH=$(getSourceGamePath "${GAME}")
+        local options+=("$GAME" "$GAME_NAME")
+        if [ -f $GAME_PATH ]; then
+            HAS_GAME="1"
+            break
+        fi
+    done
+    echo $HAS_GAME
+}
+
 function chooseAGame()
 {
     local options=()    

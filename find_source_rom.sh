@@ -18,8 +18,6 @@ function find_source()
     #echo "Extensions List: $extensions_list"
 
 
-    #find "$rom_folder" -name '*.smc' -o -name '*.sfc' -o -name '*.zip' > $TMP_LIST
-    #TODO make grep work with full paths, at teh oment it's lcoal path with the new patch
     ls "$rom_folder" | grep -i -E "${extensions_list}|.zip$|.7z$" > $TMP_LIST
     local chosen_file_path=$(eval chooseOneOption "\"$TMP_LIST\"" "\" A Choose ROM \"" "\"\nPlease Select an source UNHEADERED rom file to use to patch homebrew\n\nThis will be the base file that all hacks will be patched from\n\"")
     chosen_file_path=$rom_folder/$chosen_file_path
@@ -67,4 +65,4 @@ function find_source()
 }
 
 echo "About to find source"
-find_source "$1" "$2" "$3"
+find_source "$1" "$2" "$3" "$4"
