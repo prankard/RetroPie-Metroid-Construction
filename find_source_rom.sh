@@ -37,7 +37,7 @@ function find_source()
                 mv "${TEMP_FOLDER}/${choice_filename}" "${destination_file}"
                 cd "$ROOT_DIR"
             else
-                exec "$ROOT_DIR/show_menu.sh" "A"
+                dialog --title "  NO VALID FILES FOUND IN ARCHIVE  " --colors --msgbox "\nCould not find file with extension $extensions_list\n\nOr no file inside archive selected" 19 80
             fi
 
         else
