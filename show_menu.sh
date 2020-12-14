@@ -81,6 +81,12 @@ else
     fi
 fi
 
+if [[ ! -f "$(eval getSourceGamePath $GAME)" ]]; then
+    unset HAS_FILE
+else
+    HAS_FILE=1
+fi
+
 GAME_SYSTEM=$(eval getSystemFromGame "$GAME")
 GAMELIST_PATH=$(eval getGamelistPath "$GAME_SYSTEM")
 
