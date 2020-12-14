@@ -85,6 +85,9 @@ GAMELIST_PATH=$(eval getGamelistPath "$GAME_SYSTEM")
 SEPERATOR="|||"
 ROM_DIR=$(eval getRetropiePath)/roms/${GAME_SYSTEM}/
 
+MENU_DATA=$CACHE_FOLDER/${GAME}_menu_data.txt
+MENU_DATA_DETAILED=$CACHE_FOLDER/${GAME}_menu_data_detailed.txt
+
 # Package Selection
 mapfile -t options < $MENU_DATA
 #dialog --title " Menu! " --column-separator "|" --menu "" 19 40 12 "1" "A long option|One" "2" "Option|Two" "3" "Option|Three" "4" "Option|Four"
