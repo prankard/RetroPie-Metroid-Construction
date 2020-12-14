@@ -20,8 +20,9 @@ function show_advanced_menu()
                 local rom_folder=$(eval getRetropiePath)/roms/${game_system}
                 local destination_file=$(eval getSourceGamePath "$game_choice")
                 local valid_md5_hash=$(getMd5FromGame "${game_choice}")
+                local valid_file_types=$(getValidExtensionsFromGame "${game_choice}")
 
-                bash $ROOT_DIR/find_source_rom.sh "$rom_folder" "$destination_file" ".smc$|.sfc$" "$valid_md5_hash"
+                bash $ROOT_DIR/find_source_rom.sh "$rom_folder" "$destination_file" "$valid_file_types" "$valid_md5_hash"
             fi
         elif [ "$choice" = "V" ]; then
             bash "$ROOT_DIR/verify_installed_files.sh"

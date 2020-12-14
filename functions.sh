@@ -107,6 +107,20 @@ function getMd5FromGame()
     done
 }
 
+function getValidExtensionsFromGame()
+{
+    if [ -z "$GAME_TO_VALID_EXTENSIONS_ARRAY" ]; then
+        IFS=',' read -r -a GAME_TO_VALID_EXTENSIONS_ARRAY <<< "$GAME_TO_VALID_EXTENSIONS"
+    fi
+
+    for (( c=0; c<=${#GAME_TO_VALID_EXTENSIONS_ARRAY[@]}; c+=2 ))
+    do  
+        if [ "$1" = "${GAME_TO_VALID_EXTENSIONS_ARRAY[$c]}" ]; then
+            echo ${GAME_TO_VALID_EXTENSIONS_ARRAY[$c+1]}
+        fi
+    done
+}
+
 ###################################################
 # getGamelistPath
 #
