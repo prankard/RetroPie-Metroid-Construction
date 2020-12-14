@@ -153,7 +153,7 @@ else
 fi
 
 configure_options=()
-if [ ! -z "$HAS_INSTALLLED" ]; then
+if [ -z "$HAS_INSTALLED" ]; then
     if [ ! -z "$HAS_FILE" ]; then
         configure_options+=("I" "Install")
     fi

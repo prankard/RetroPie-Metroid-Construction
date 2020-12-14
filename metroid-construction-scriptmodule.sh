@@ -67,7 +67,7 @@ function install_metroid-construction() {
     if grep -vq "<path>./$scriptname</path>" "$gamelistxml"; then
         xmlstarlet ed -L -P -s "/gameList" -t elem -n "gameTMP" \
             -s "//gameTMP" -t elem -n path -v "./$scriptname" \
-            -s "//gameTMP" -t elem -n name -v "metroid-construction" \
+            -s "//gameTMP" -t elem -n name -v "Metroid Construction" \
             -s "//gameTMP" -t elem -n desc -v "Install Metroid Game Homebrew from Metroid Construction" \
             -s "//gameTMP" -t elem -n image -v "./icons/${PLUGIN_NAME}.png" \
             -r "//gameTMP" -v "game" \
