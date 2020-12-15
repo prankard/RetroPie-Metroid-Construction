@@ -45,7 +45,7 @@ if downloads_div != None and len(downloads_div) >= 3:
         link=link[link.find('&f=')+3:]
         link=urllib.parse.unquote(link)
         downloads.append(link)
-        downloads_names.append(link.get_text())
+        downloads_names.append(str(dh))
 
 print("Images Length: " + str(len(images)))
 for image in images:
