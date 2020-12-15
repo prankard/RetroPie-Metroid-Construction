@@ -125,7 +125,7 @@ do
         hack_completion="${array[6]}" #completion time
         hack_rating="${array[7]}" #rating
         hack_rating_percent="${array[8]}" #rating-percent(0-1)
-        hack_datetime="${array[7]}" #datetime YYYYMMDDT000000
+        hack_datetime="${array[9]}" #datetime YYYYMMDDT000000
         break
     fi
 done < "$MENU_DATA_DETAILED"

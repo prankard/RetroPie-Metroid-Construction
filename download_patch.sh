@@ -219,11 +219,11 @@ echo "Description: "$hack_desc
 #menu_text+="Avg Rating:   $hack_rating\n\n"
 
 
-hack_name=$3
-hack_author=$4
-hack_genre=$5
-hack_datetime=$6
-hack_rating_percent=$7
+hack_name="$3"
+hack_author="$4"
+hack_genre="$5"
+hack_datetime="$6"
+hack_rating_percent="$7"
 
 # Parse game arguments
 image_extension=$(basename -- "$hack_image") #get filename

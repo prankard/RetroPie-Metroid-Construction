@@ -60,10 +60,10 @@ if command == "add":
 # game_id="1234"
 # game_title="Super Metroid"
 # game_filename="Super Metroid.smc"
-# game_rating="4.7"
-# game_release_date="10-12-2020"
+# game_rating="0.7"
+# game_release_date="20201231T000000"
 # game_developer="Author"
-# game_genre="Author"
+# game_genre="Spoof"
 # game_image_filename="Super Metroid Zero Mission.png"
 # game_desc="Long description goes here"
 
