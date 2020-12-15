@@ -222,9 +222,8 @@ echo "Description: "$hack_desc
 hack_name=$3
 hack_author=$4
 hack_genre=$5
-hack_date=$6
-hack_rating=$7
-
+hack_datetime=$6
+hack_rating_percent=$7
 
 # Parse game arguments
 image_extension=$(basename -- "$hack_image") #get filename
@@ -235,7 +234,7 @@ local_image_filename=./$hack_id.$image_extension
 
 echo "Downloading screenshot"
 wget $hack_image -O $MEDIA_DIR/$local_image_filename
-python3 "$ROOT_DIR/modify_gamelist.py" "$GAMELIST_PATH" add "$hack_id" "$hack_name" "$DESTINATION_SMC_FILENAME" "$hack_rating" "$hack_date" "$hack_author" "$hack_genre" "$local_image_filename" "$hack_desc"
+python3 "$ROOT_DIR/modify_gamelist.py" "$GAMELIST_PATH" add "$hack_id" "$hack_name" "$DESTINATION_SMC_FILENAME" "$hack_rating_percent" "$hack_datetime" "$hack_author" "$hack_genre" "$local_image_filename" "$hack_desc"
 
 #addGameToXML "snes" "Super Metroid Randomized" "$DESTINATION_SMC_FILENAME" "$DESC" "Super Metroid"
 
