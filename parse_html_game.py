@@ -36,6 +36,7 @@ if images_div != None:
 downloads_div = soup.html.body.find_all('div', { "class": "underboxD" } )
 
 downloads = []
+downloads_names = []
 if downloads_div != None and len(downloads_div) >= 3:
     #print(downloads_div[2])
     downloads_hyperlinks = downloads_div[2].find_all('a', recursive=False)
@@ -44,6 +45,7 @@ if downloads_div != None and len(downloads_div) >= 3:
         link=link[link.find('&f=')+3:]
         link=urllib.parse.unquote(link)
         downloads.append(link)
+        downloads_names.append(link.get_text())
 
 print("Images Length: " + str(len(images)))
 for image in images:
@@ -57,12 +59,16 @@ if len(images) > 0:
     image=images[0]
 if len(downloads) > 0:
     download=downloads[0]
+if len(downloads_names) > 0:
+    download_name=downloads_names[0]
 
 f = open(output_file, "w")
 f.write('hack_image=' + image + "\n")
 f.write('hack_image=' + image + "\n")
 f.write('hack_images=' + ",".join(images) + "\n")
 f.write('hack_download=' + download + "\n")
+f.write('hack_download_name=' + download_name + "\n")
 f.write('hack_downloads=' + ",".join(downloads) + "\n")
+f.write('hack_downloads_names=' + ",".join(downloads_names) + "\n")
 f.write('hack_desc=\"' + description + "\"\n")
 f.close()

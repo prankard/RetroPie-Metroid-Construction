@@ -69,16 +69,19 @@ source $TMP_GAME_VARS
 echo "Images: "$hack_image
 echo "Download: "$hack_download
 echo "Download: "$hack_downloads
+echo "Download: "$hack_downloads_names
 
 IFS=',' read -r -a hack_downloads_array <<< "$hack_downloads"
+IFS=',' read -r -a hack_downloads_names_array <<< "$hack_downloads_names"
 if [ ${#hack_downloads_array[@]} -gt 1 ]; then
     # So much download choice, let's refine
     options=()
     for i in "${!hack_downloads_array[@]}"
     do
         download_filename=$(basename -- "${hack_downloads_array[$i]}")
+        download_name="${hack_downloads_names_array[$i]}"
         download_filename=$(echo $download_filename | cut -f1 -d "?") # strip php arguments
-        options+=("$i" "${download_filename}")
+        options+=("$i" "${download_name} | ${download_filename}")
         # or do whatever with individual element of the array
     done
     #sleep 5
@@ -135,7 +138,7 @@ if [ "$extension" = "rar" ]; then
     echo "Extract .rar here"
 
     unrar-free -t $TMP_ARCHIVE | grep -i '.ips' | cut -c 2- > $TMP_LIST
-    choice=$(eval chooseOneOption "\"$TMP_LIST\"" "\" AChoose IPS \"" "\"APlease select and IPS file to patch\"")
+    choice=$(eval chooseOneOption "\"$TMP_LIST\"" "\" Choose IPS \"" "\"Please select and IPS file to patch\"")
     if [ ! -z "$choice" ]; then
         echo "Choice was not empty"
         echo "You choose: "$choice
@@ -155,7 +158,7 @@ elif [ "$extension" = "zip" ] || [ "$extension" = "7z" ]; then
     fi
     #ips_files=$(unzip -l $TMP_ARCHIVE | grep -i '.ips' | cut -c 31-) # old unzip list
     7z l $TMP_ARCHIVE | grep -i '.ips' | cut -c 54- > $TMP_LIST 
-    choice=$(eval chooseOneOption "\"$TMP_LIST\"" "\" AChoose IPS \"" "\"APlease select and IPS file to patch\"")
+    choice=$(eval chooseOneOption "\"$TMP_LIST\"" "\" Choose IPS \"" "\"Please select and IPS file to patch\"")
     if [ ! -z "$choice" ]; then
         #unzip -p "$TMP_ARCHIVE" "$ips_files" > "$TMP_IPS" # old unzip
         cd $TEMP_FOLDER
