@@ -22,6 +22,7 @@ function depends_metroid-construction() {
 
 function sources_metroid-construction() {
     echo "Plugin Name: $PLUGIN_NAME"
+
     gitPullOrClone "$md_build" "https://github.com/prankard/RetroPie-Metroid-Construction.git"
 
     # Add execute permission
