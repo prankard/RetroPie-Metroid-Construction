@@ -140,7 +140,10 @@ function getGamelistPath()
     if [[ ! -f "$gamelistPath" ]]; then
         local gamelistPath="$home/../.emulationstation/gamelists/$1/gamelist.xml"
         if [[ ! -f "$gamelistPath" ]]; then
-            local gamelistPath=""
+            local gamelistPath="$home/etc/emulationstation/gamelists/$1/gamelist.xml"
+            if [[ ! -f "$gamelistPath" ]]; then
+                local gamelistPath=""
+            fi
         fi
     fi
     echo $gamelistPath

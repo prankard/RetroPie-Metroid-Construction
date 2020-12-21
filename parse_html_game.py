@@ -45,7 +45,7 @@ if downloads_div != None and len(downloads_div) >= 3:
         link=link[link.find('&f=')+3:]
         link=urllib.parse.unquote(link)
         downloads.append(link)
-        downloads_names.append(str(dh))
+        downloads_names.append(dh.contents[0])
 
 print("Images Length: " + str(len(images)))
 for image in images:
@@ -55,6 +55,10 @@ print("Downloads Length: " + str(len(downloads)))
 for download in downloads:
     print(download)
 
+print("Downloads Names Length: " + str(len(downloads_names)))
+for dName in downloads_names:
+    print(dName)
+
 if len(images) > 0:
     image=images[0]
 if len(downloads) > 0:
@@ -63,12 +67,13 @@ if len(downloads_names) > 0:
     download_name=downloads_names[0]
 
 f = open(output_file, "w")
-f.write('hack_image=' + image + "\n")
-f.write('hack_image=' + image + "\n")
-f.write('hack_images=' + ",".join(images) + "\n")
-f.write('hack_download=' + download + "\n")
-f.write('hack_download_name=' + download_name + "\n")
-f.write('hack_downloads=' + ",".join(downloads) + "\n")
-f.write('hack_downloads_names=' + ",".join(downloads_names) + "\n")
-f.write('hack_desc=\"' + description + "\"\n")
+f.write('hack_image="' + image + "\"\n")
+f.write('hack_images="' + ",".join(images) + "\"\n")
+f.write('hack_download="' + download + "\"\n")
+f.write('hack_download_name="' + download_name + "\"\n")
+f.write('hack_downloads="' + ",".join(downloads) + "\"\n")
+f.write('hack_downloads_names="' + ",".join(downloads_names) + "\"\n")
+f.write('IFS='' read -r -d '' hack_desc <<"EOF"\n')
+f.write(description + '\n')
+f.write('EOF\n')
 f.close()
