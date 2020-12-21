@@ -239,8 +239,9 @@ if [ ! -z "$GAMELIST_PATH" ]; then
     echo "Downloading screenshot"
     wget $hack_image -O $MEDIA_DIR/$local_image_filename
     python3 "$ROOT_DIR/modify_gamelist.py" "$GAMELIST_PATH" add "$hack_id" "$hack_name" "$DESTINATION_SMC_FILENAME" "$hack_rating_percent" "$hack_datetime" "$hack_author" "$hack_genre" "$local_image_filename" "$hack_desc"
+    dialog --title "  Complete  " --msgbox "\n\nHomebrew installed!\n\nRestart Emulationstation (Start->Quit->Restart Emulation Station) to see the newly added files to your system" 19 80
 else
-    dialog --title "  Warning  " --msgbox "\n\nHomebrew downloaded and installed but could not file correct gamelist path to put images/rating/description." 19 80
+    dialog --title "  Warning  " --msgbox "\n\nHomebrew installed BUT could not file correct gamelist path to put images/rating/description.\n\nRestart Emulationstation (Start->Quit->Restart Emulation Station) to see the newly added files to your system" 19 80
 fi
 
 #addGameToXML "snes" "Super Metroid Randomized" "$DESTINATION_SMC_FILENAME" "$DESC" "Super Metroid"
