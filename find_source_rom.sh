@@ -19,9 +19,15 @@ function find_source()
 
 
     ls "$rom_folder" | grep -i -E "${extensions_list}|.zip$|.7z$" > $TMP_LIST
+    local valid_files_count=$(wc -l < $TMP_LIST)
+    if [ "$valid_files_count" -eq 0 ]; then
+        dialog --title "  NO VALID FILES FOUND IN FOLDER  " --colors --msgbox "\nCould not any valid files with extensions:\n${extensions_list}|.zip$|.7z$\n\nIn the folder:\n$rom_folder" 19 80
+        exit
+    fi
+
     local chosen_file_path=$(eval chooseOneOption "\"$TMP_LIST\"" "\" A Choose ROM \"" "\"\nPlease Select an source UNHEADERED rom file to use to patch homebrew\n\nThis will be the base file that all hacks will be patched from\n\"")
-    chosen_file_path=$rom_folder/$chosen_file_path
     if [ ! -z "$chosen_file_path" ]; then
+        chosen_file_path=$rom_folder/$chosen_file_path
         local extension="${chosen_file_path##*.}"
         local extension=${extension,,} #to lowercase
         if [ "$extension" = "zip" ]; then
