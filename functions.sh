@@ -88,7 +88,7 @@ function getSourceGamePath()
     for (( c=0; c<=${#GAME_TO_SOURCE_FILES_ARRAY[@]}; c+=2 ))
     do  
         if [ "$1" = "${GAME_TO_SOURCE_FILES_ARRAY[$c]}" ]; then
-            echo ${GAME_TO_SOURCE_FILES_ARRAY[$c+1]}
+            echo $(eval echo ${GAME_TO_SOURCE_FILES_ARRAY[$c+1]}) # The eval handles the ~ and replaces it with home
         fi
     done
 }

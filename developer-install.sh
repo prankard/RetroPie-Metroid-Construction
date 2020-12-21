@@ -38,16 +38,10 @@ if [[ ! -s "$JS_SCRIPTMODULE_FULL" ]]; then
     exit 1
 fi
 
-#cat "$JS_SCRIPTMODULE_FULL"
+## patch out the git clone with a copy command
 sed -i "s|gitPullOrClone|rm -rf \"\$md_build/*\" \&\& cp \"$LOCAL_PATH/\"* \"\$md_build/\" # gitPullOrClone|g" "$JS_SCRIPTMODULE_FULL"
 echo "$JS_SCRIPTMODULE_FULL"
 
-## todo patch out the git clone with a copy command
-# find 'gitPullOrClone "$md_build"'
-# replace with 'rm -rf "$md_build/*" && cp "$LOCAL_PATH/*" "$md_build" #gitPullOrClone "$md_build"'
-
-# ^ need to escape vars sometimes, but not others
-
-# Dont run these until we test the output file
+# Install package
 sudo "$RP_SETUP_DIR/retropie_packages.sh" "$JS_SCRIPTMODULE"
-sudo "$RP_SETUP_DIR/retropie_packages.sh" "$JS_SCRIPTMODULE" gui
+bash "/opt/retropie/supplementary/$JS_SCRIPTMODULE/$PLUGIN_SCRIPT_DESTINATION_NAME"

@@ -10,7 +10,7 @@ for GAME in "${GAMES_ARRAY[@]}"
 do
     GAME_PATH=$(getSourceGamePath "${GAME}")
     MSG+="\Z0  ${GAME}: "
-    if [[ -f "$GAME_PATH" ]]; then
+    if [[ -f $GAME_PATH ]]; then
         VALID_MD5_HASH=$(getMd5FromGame "${GAME}")
         HASH=($(md5sum "$GAME_PATH"))
         if [ "$HASH" = "$VALID_MD5_HASH" ]; then

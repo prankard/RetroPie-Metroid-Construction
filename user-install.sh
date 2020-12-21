@@ -1,5 +1,5 @@
 #!/bin/bash
-# installing RetroPie-joystick-selection tool
+# installing RetroPie-MetroidConstruction
 
 user="$SUDO_USER"
 [[ -z "$user" ]] && user="$(id -un)"
@@ -18,10 +18,6 @@ if [[ ! -d "$RP_SETUP_DIR" ]]; then
     exit 1
 fi
 
-# Temp
-#echo "cp ${PLUGIN_SCRIPT_NAME} ${JS_SCRIPTMODULE_FULL}"
-#cp ${PLUGIN_SCRIPT_NAME} ${JS_SCRIPTMODULE_FULL}
-# Real
 curl "$JS_SCRIPTMODULE_URL" -o "$JS_SCRIPTMODULE_FULL"
 
 if [[ ! -s "$JS_SCRIPTMODULE_FULL" ]]; then
@@ -30,4 +26,4 @@ if [[ ! -s "$JS_SCRIPTMODULE_FULL" ]]; then
 fi
 
 sudo "$RP_SETUP_DIR/retropie_packages.sh" "$JS_SCRIPTMODULE"
-"$RP_SETUP_DIR/retropie_packages.sh" "$JS_SCRIPTMODULE" gui
+#bash "/opt/retropie/supplementary/$JS_SCRIPTMODULE/$PLUGIN_SCRIPT_DESTINATION_NAME"
