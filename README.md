@@ -21,11 +21,19 @@ bash user-install.sh
 rm user-install.sh
 ```
 
-4. **After that you are ready to use it via RetroPie menu in emulationstation:**
+4. After it is installed run it via emulationstation or reboot Retropie:
 
 ```bash
 emulationstation
 ```
+
+5. Don't forget to select source rom in the advanced menu to select the correct rom file to use as a base, or upload them manually to:
+
+    - ~/.metroidconstruction/M1.nes
+    - ~/.metroidconstruction/M2.gb
+    - ~/.metroidconstruction/SM.smc
+    - ~/.metroidconstruction/MF.gba
+    - ~/.metroidconstruction/MZM.gba
 
 #### Thanks to
 
