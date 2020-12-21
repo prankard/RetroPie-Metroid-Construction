@@ -1,7 +1,0 @@
-pip install beautifulsoup4 
-sudo apt-get install python3-bs4
-sudo apt-get install python3-lxml
-sudo apt-get install p7z-full
-sudo apt-get install unrar-free
-
-
