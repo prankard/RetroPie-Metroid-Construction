@@ -22,6 +22,7 @@ fi
 #GAME="SM"
 GAME_SYSTEM=$(eval getSystemFromGame "$GAME")
 GAMELIST_PATH=$(eval getGamelistPath "$GAME_SYSTEM")
+GAME_EXTENSION=$(eval getExtensionFromGame "$GAME")
 
 echo $GAME
 echo $GAME_SYSTEM
@@ -44,6 +45,7 @@ fi
 
 GAME_HTML=${CACHE_FOLDER}/${hack_id}.html
 TMP_GAME_VARS=$TEMP_FOLDER/game.ini
+TMP_GAME_DESC=$TEMP_FOLDER/game-desc.ini
 TMP_IPS=$TEMP_FOLDER/patch.ips
 TMP_LIST=$TEMP_FOLDER/list.txt
 
@@ -51,6 +53,11 @@ ROM_DIR=$(eval getRetropiePath)/roms/${GAME_SYSTEM}
 #SOURCE_GAME=/home/pi/RetroPie/roms/snes/SuperMetroidOriginalHeaderless.smc.bak
 SOURCE_GAME=$(eval getSourceGamePath "$GAME")
 MEDIA_DIR=$(eval getMediaPath "$GAME_SYSTEM")
+
+if [[ ! -d "$ROM_DIR" ]]; then
+    dialog --title "  Error  " --msgbox "\n\nCould not install homebrew.\nRom Directory doesn't exist:\n$ROM_DIR\n" 19 80
+    exit
+fi
 
 #make dirs
 #rm -r $TEMP_FOLDER
@@ -63,7 +70,7 @@ fi
 
 #parse html into variables
 rm -f $TMP_GAME_VARS
-python3 "$ROOT_DIR/parse_html_game.py" $GAME_HTML $TMP_GAME_VARS
+python3 "$ROOT_DIR/parse_html_game.py" $GAME_HTML $TMP_GAME_VARS $TMP_GAME_DESC
 source $TMP_GAME_VARS
 
 echo "Images: "$hack_image
@@ -183,9 +190,10 @@ fi
 #put ips and original file in rom folder
 
 # Check overwriting files
+
 DESTINATION_IPS=${ROM_DIR}/metcon_${hack_id}_${filename}.ips
-DESTINATION_SMC=$ROM_DIR/metcon_${hack_id}_$filename.smc
-DESTINATION_SMC_FILENAME=metcon_${hack_id}_$filename.smc
+DESTINATION_SMC=$ROM_DIR/metcon_${hack_id}_$filename.$GAME_EXTENSION
+DESTINATION_SMC_FILENAME=metcon_${hack_id}_$filename.$GAME_EXTENSION
 if test -e $DESTINATION_IPS || test -e $DESTINATION_SMC; then
     yesno=$(areyousure "$filename already exists, overwrite?")
     if [ "$yesno" -eq 1 ]; then
@@ -237,8 +245,13 @@ local_image_filename=./$hack_id.$image_extension
 
 if [ ! -z "$GAMELIST_PATH" ]; then
     echo "Downloading screenshot"
+    if [[ ! -d "$MEDIA_DIR" ]]; then
+        echo "Creating media folder"
+        mkdir -p "$MEDIA_DIR"
+    fi
+    
     wget $hack_image -O $MEDIA_DIR/$local_image_filename
-    python3 "$ROOT_DIR/modify_gamelist.py" "$GAMELIST_PATH" add "$hack_id" "$hack_name" "$DESTINATION_SMC_FILENAME" "$hack_rating_percent" "$hack_datetime" "$hack_author" "$hack_genre" "$local_image_filename" "$hack_desc"
+    python3 "$ROOT_DIR/modify_gamelist.py" "$GAMELIST_PATH" add "$hack_id" "$hack_name" "$DESTINATION_SMC_FILENAME" "$hack_rating_percent" "$hack_datetime" "$hack_author" "$hack_genre" "$local_image_filename" "$TMP_GAME_DESC"
     dialog --title "  Complete  " --msgbox "\n\nHomebrew installed!\n\nRestart Emulationstation (Start->Quit->Restart Emulation Station) to see the newly added files to your system" 19 80
 else
     dialog --title "  Warning  " --msgbox "\n\nHomebrew installed BUT could not file correct gamelist path to put images/rating/description.\n\nRestart Emulationstation (Start->Quit->Restart Emulation Station) to see the newly added files to your system" 19 80

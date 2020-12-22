@@ -8,12 +8,13 @@ from bs4 import BeautifulSoup
 
 #urllib.request.urlretrieve("https://metroidconstruction.com/hacks.php?sort=&dir=&filters%5B%5D=M1&filters%5B%5D=M2&filters%5B%5D=SM&filters%5B%5D=MF&filters%5B%5D=MZM&filters%5B%5D=MP1&filters%5B%5D=MP2&filters%5B%5D=MP3&filters%5B%5D=Unknown&filters%5B%5D=Boss+Rush&filters%5B%5D=Exploration&filters%5B%5D=Challenge&filters%5B%5D=Spoof&filters%5B%5D=Speedrun%2FRace&filters%5B%5D=Incomplete&filters%5B%5D=Quick+Play&filters%5B%5D=Improvement&filters%5B%5D=Vanilla%2B&search=&num_per_page=50&source=retropiescript", filename="/home/pi/metroidconstructionapi/tmp/file.html")
 
-if len(sys.argv) != 3:
-    print("Incorrect aguments, needed 2\n- source html file to read\n- output file for data\n\nexample:\npyhton3 parse_html_menu.py file.html output.txt\n")
+if len(sys.argv) != 4:
+    print("Incorrect aguments, needed 3\n- source html file to read\n- output file for data\n\nexample:\npyhton3 parse_html_menu.py file.html output.txt\n")
     exit()
 
 source_html=sys.argv[1]
 output_file=sys.argv[2]
+output_file_desc=sys.argv[3]
 
 response = urllib.request.urlopen('file://' + source_html)
 html_doc = response.read()
@@ -73,7 +74,15 @@ f.write('hack_download="' + download + "\"\n")
 f.write('hack_download_name="' + download_name + "\"\n")
 f.write('hack_downloads="' + ",".join(downloads) + "\"\n")
 f.write('hack_downloads_names="' + ",".join(downloads_names) + "\"\n")
-f.write('IFS='' read -r -d '' hack_desc <<"EOF"\n')
-f.write(description + '\n')
-f.write('EOF\n')
+#f.write('hack_desc="' + description + '"\n')
+#f.write('hack_desc=`cat <<EOF')
+#f.write('hack_desc=$(cat <<EOF\n')
+#f.write('IFS='' read -r -d '' hack_desc <<"EOF"\n')
+#f.write(description + '\n')
+#f.write('EOF\n)')
+#f.write('EOF\n')
+f.close()
+
+f = open(output_file_desc, "w")
+f.write(description)
 f.close()

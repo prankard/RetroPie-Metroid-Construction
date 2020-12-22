@@ -45,3 +45,4 @@ echo "$JS_SCRIPTMODULE_FULL"
 # Install package
 sudo "$RP_SETUP_DIR/retropie_packages.sh" "$JS_SCRIPTMODULE"
 bash "/opt/retropie/supplementary/$JS_SCRIPTMODULE/$PLUGIN_SCRIPT_DESTINATION_NAME"
+#bash "/opt/retropie/supplementary/$JS_SCRIPTMODULE/download_patch.sh" "SM" "369"

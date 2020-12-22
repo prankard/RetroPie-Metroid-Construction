@@ -52,7 +52,10 @@ if command == "add":
     game_developer=sys.argv[8]
     game_genre=sys.argv[9]
     game_image_filename=sys.argv[10]
-    game_desc=sys.argv[11]
+    game_desc_path=sys.argv[11]
+    file=open(game_desc_path,mode='r')
+    game_desc=file.read()
+    file.close()
     game_path="./" + game_filename
     game_image_path="./media/images/" + game_filename
 

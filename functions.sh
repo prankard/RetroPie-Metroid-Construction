@@ -121,6 +121,20 @@ function getValidExtensionsFromGame()
     done
 }
 
+function getExtensionFromGame()
+{
+    if [ -z "$GAME_TO_FILE_EXTENSION_ARRAY" ]; then
+        IFS=',' read -r -a GAME_TO_FILE_EXTENSION_ARRAY <<< "$GAME_TO_FILE_EXTENSION"
+    fi
+
+    for (( c=0; c<=${#GAME_TO_FILE_EXTENSION_ARRAY[@]}; c+=2 ))
+    do  
+        if [ "$1" = "${GAME_TO_FILE_EXTENSION_ARRAY[$c]}" ]; then
+            echo ${GAME_TO_FILE_EXTENSION_ARRAY[$c+1]}
+        fi
+    done
+}
+
 ###################################################
 # getGamelistPath
 #
